@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Note>
+
+@{
+    ViewData["Title"] = "Note List";
+}
+
+<h3>@ViewData["Title"]</h3>
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create New Note</a>
+</p>
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categories.Name)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model != null && Model.Any())
+        {
+            @foreach(var note in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => note.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => note.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => note.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => note.Categories.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@note.Id" class="btn btn-success btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@note.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                    
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">
+                    <div>
+                        Notes not available in the database!
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
